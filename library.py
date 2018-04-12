@@ -96,8 +96,8 @@ def split_eighty_twenty(n):
 
 def test_train(data, ratings, savestring):
     train_idx, test_idx = split_eighty_twenty(len(data))
-    save_file('selection/train_idx' + savestring + '.index', train_idx)
-    save_file('selection/test_idx' + savestring + '.index', test_idx)
+    save_file(savestring + '/train_idx.data', train_idx)
+    save_file(savestring + '/test_idx.data', test_idx)
     X_train, X_test = np.array(data)[train_idx], np.array(data)[test_idx]
     y_train, y_test = np.array(ratings)[train_idx], np.array(ratings)[test_idx]
     return X_train, X_test, y_train, y_test
@@ -107,7 +107,7 @@ def predict_scores(data, ratings, CV, LR, i, yr, savestring, features):
 
     if i == 0:
         X_train = CV.fit_transform(X_train)
-        save_file('models/CV' + str(yr) + savestring + '.CV', CV)
+        save_file(savestring + '/CV_' + str(yr) + '.data', CV)
         X_test = CV.transform(X_test)
         features[:] = list(CV.get_feature_names())
     else:
@@ -115,7 +115,7 @@ def predict_scores(data, ratings, CV, LR, i, yr, savestring, features):
         X_test = CV.transform(X_test)
 
     LR.fit(X_train,y_train)
-    save_file('models/LR_' + str(yr) + savestring + '.LR', LR)
+    save_file(savestring + '/LR_' + str(yr) + '.data', LR)
     y_pred = LR.predict(X_test)
     print(LR.score(X_test, y_test))
     print(yr)
