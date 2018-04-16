@@ -94,16 +94,16 @@ def split_eighty_twenty(n):
     threshold = int(np.floor(n*0.8))
     return indices[:threshold], indices[threshold:]
 
-def test_train(data, ratings, savestring):
+def test_train(data, ratings, savestring, yr):
     train_idx, test_idx = split_eighty_twenty(len(data))
-    save_file(savestring + '/train_idx.data', train_idx)
-    save_file(savestring + '/test_idx.data', test_idx)
+    save_file(savestring + '/train_idx_'  + str(yr) + '.data', train_idx)
+    save_file(savestring + '/test_idx_'  + str(yr) + '.data', test_idx)
     X_train, X_test = np.array(data)[train_idx], np.array(data)[test_idx]
     y_train, y_test = np.array(ratings)[train_idx], np.array(ratings)[test_idx]
     return X_train, X_test, y_train, y_test
 
 def predict_scores(data, ratings, CV, LR, i, yr, savestring, features):   
-    X_train, X_test, y_train, y_test = test_train(data, ratings, savestring)
+    X_train, X_test, y_train, y_test = test_train(data, ratings, savestring, yr)
 
     if i == 0:
         X_train = CV.fit_transform(X_train)
