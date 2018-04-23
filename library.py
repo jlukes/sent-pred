@@ -125,7 +125,6 @@ def predict_scores(data, ratings, CV, LR, i, yr, savestring, features):
     print()
     return LR, CV
 
-
 ###################################
 #             PRINTS              #
 ###################################
